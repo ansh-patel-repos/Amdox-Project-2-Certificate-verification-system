@@ -14,10 +14,13 @@ export const clerkWebhooks = async (req, res) => {
         });
 
         const {data, type} = req.body;
-        console.log("Data: ", data);
-        console.log("type: ", type);
-        
+        if(data) {
+            console.log("Data: ", data);
+            console.log("type: ", type);
+        }
+
+        return res.send(data, type)
     } catch (error) {
-        
+        console.log(error.message);
     }
 }
