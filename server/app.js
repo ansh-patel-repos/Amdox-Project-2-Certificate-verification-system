@@ -8,7 +8,6 @@ dotenv.config();
 connectDB();
 const app = express();
 
-app.use("/webhooks", express.raw({ type: "application/json" }));
 app.use(express.json())
 
 app.get("/", (req, res) => {
