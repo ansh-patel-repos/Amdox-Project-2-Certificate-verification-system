@@ -5,10 +5,8 @@ const Footer = () => {
     <footer className="bg-gray-900 text-gray-300 py-12">
       <div className="max-w-6xl mx-auto px-6">
 
-        {/* Top Section */}
         <div className="grid md:grid-cols-3 gap-8 text-center md:text-left">
 
-          {/* Brand */}
           <div>
             <h2 className="text-xl font-bold text-white">CertifyX</h2>
             <p className="mt-3 text-sm text-gray-400">
@@ -16,7 +14,6 @@ const Footer = () => {
             </p>
           </div>
 
-          {/* Links */}
           <div>
             <h3 className="text-white font-semibold">Quick Links</h3>
             <div className="mt-3 flex flex-col gap-2">
@@ -26,7 +23,6 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Contact */}
           <div>
             <h3 className="text-white font-semibold">Contact</h3>
             <p className="mt-3 text-sm text-gray-400">
@@ -39,7 +35,6 @@ const Footer = () => {
 
         </div>
 
-        {/* Bottom Section */}
         <div className="mt-10 border-t border-gray-700 pt-6 text-center text-sm text-gray-500">
           © {new Date().getFullYear()} CertifyX. All rights reserved.
         </div>

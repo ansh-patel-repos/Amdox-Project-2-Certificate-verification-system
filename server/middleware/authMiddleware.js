@@ -1,30 +1,20 @@
-import jwt from "jsonwebtoken";
+import { User } from "../models/authModel.js";
 
-export const authMiddleware = async (req, res, next) => {
-  let token;
-
-  if (
-    req.headers.authorization &&
-    req.headers.authorization.startsWith("Bearer")
-  ) {
-    try {
-      token = req.headers.authorization.split(" ")[1];
-
-      const isVerified = jwt.verify(token, process.env.JWT_SECRET_KEY);
-      const userData = await User.findOne({ _id: isVerified.id }).select({
-        password: 0,
-      });
-
-      req.user = userData;
-      req.token = token;
-      req.userID = userData._id;
-      next();
-    } catch (error) {
-      res.status(401).json({ message: "Not authorized" });
-    }
-
-    if (!token) {
-      res.status(401).json({ message: "No token provided" });
-    }
+export const protectUser = async (req, res, next) => {
+  try {
+    const { userId } = req.auth();
+    
+    const user = await User.findOne({
+      clerkId: userId,
+    });
+    
+    req.userId = userId;
+    req.user = user.role
+    next();
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
   }
 };

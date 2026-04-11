@@ -1,11 +1,11 @@
 import { Router } from "express";
-import { login, register, user } from "../controllers/authController.js";
-import { authMiddleware } from "../middleware/authMiddleware.js";
+import { user, updateUserInfo } from "../controllers/authController.js";
+import { requireAuth } from "@clerk/express";
+import { protectUser } from "../middleware/authMiddleware.js";
 
 const router = Router();
 
-router.post("/register", register);
-router.post("/login", login);
-router.get("/user", authMiddleware, user)
+router.get("/user", requireAuth(), protectUser, user)
+router.patch("/updateUserDetails", requireAuth(), protectUser, updateUserInfo)
 
 export default router;

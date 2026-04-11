@@ -4,9 +4,6 @@ import { User } from "../models/authModel.js";
 export const clerkWebhooks = async (req, res) => {
   try {
     console.log("Webhook received!");
-    // create a webhook svix instance
-    console.log("request body", req.body);
-    
     const webhook = new Webhook(process.env.CLERK_WEBHOOK_SECRET);
 
     await webhook.verify(JSON.stringify(req.body), {
@@ -23,9 +20,10 @@ export const clerkWebhooks = async (req, res) => {
           clerkId: data.id,
           email: data.email_addresses[0].email_address,
           firstName: data.first_name,
-          lastName: data.last_name
+          lastName: data.last_name,
         };
 
+        console.log(userData);
         await User.create(userData);
         res.json({});
         break;
