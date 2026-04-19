@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
-import { useUser } from "@clerk/clerk-react";
+import { SignInButton, useUser } from "@clerk/clerk-react";
 
 export const Footer = () => {
 
-  const { isSignedIn } = useUser();  
-  
+  const { isSignedIn } = useUser();
+
   return (
     <footer className="bg-gray-900 text-gray-300 py-12">
       <div className="max-w-6xl mx-auto px-6">
@@ -28,7 +28,11 @@ export const Footer = () => {
                 isSignedIn ? (
                   <Link to="/dashboard" className="hover:text-white transition">Dashboard</Link>
                 ) : (
-                  <Link to="/login" className="hover:text-white transition">Login</Link>
+                  <SignInButton mode="modal">
+                    <button className="text-left hover:text-white transition">
+                      Login
+                    </button>
+                  </SignInButton>
                 )
               }
             </div>
