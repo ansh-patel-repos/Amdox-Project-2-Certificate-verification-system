@@ -29,9 +29,9 @@ export const Footer = () => {
                   <Link to="/dashboard" className="hover:text-white transition">Dashboard</Link>
                 ) : (
                   <SignInButton mode="modal">
-                    <button className="text-left hover:text-white transition">
+                    <Link className="hover:text-white transition">
                       Login
-                    </button>
+                    </Link>
                   </SignInButton>
                 )
               }
