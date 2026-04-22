@@ -183,6 +183,7 @@ export const uploadCertificate = async (req, res) => {
 export const getLogs = async (req, res) => {
   try {
     const logs = await VerificationLog.find().sort({ createdAt: -1 });
+    console.log(logs)
     return res.status(200).json({ success: true, logs });
   } catch (error) {
     return res.status(500).json({ success: false, message: error.message });

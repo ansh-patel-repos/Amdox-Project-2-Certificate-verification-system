@@ -13,7 +13,7 @@ const StudentDashboard = () => {
   return (
     <div className="p-6 space-y-6">
 
-      <div className="rounded-3xl p-8 text-white shadow-xl bg-linear-to-r from-indigo-500 via-purple-500 to-pink-500">
+      <div className="rounded-3xl p-5 md:p-8 text-white shadow-xl bg-linear-to-r from-indigo-500 via-purple-500 to-pink-500">
         <h1 className="text-3xl font-bold">Welcome back, Ansh 👋</h1>
         <p className="opacity-90 mt-2">
           Track, manage and verify your certificates in one place
@@ -43,12 +43,12 @@ const StudentDashboard = () => {
       <div className="backdrop-blur-lg bg-white/60 border border-white/30 rounded-2xl p-6 shadow-lg">
         <h2 className="text-lg font-semibold">Quick Actions</h2>
 
-        <div className="flex flex-wrap gap-4 mt-4">
-          <button onClick={() => navigate("/verify")} className="px-5 py-2 rounded-xl bg-linear-to-r from-indigo-500 to-purple-500 text-white font-medium shadow hover:scale-105 transition">
+        <div className="flex flex-col sm:flex-row flex-wrap gap-4 mt-4">
+          <button onClick={() => navigate("/verify")} className="px-5 py-2 w-full sm:w-auto rounded-xl bg-linear-to-r from-indigo-500 to-purple-500 text-white font-medium shadow hover:scale-105 transition text-center">
             Verify Certificate
           </button>
 
-          <button onClick={() => navigate("/dashboard/certificates")} className="px-5 py-2 rounded-xl border border-gray-300 hover:bg-gray-100 transition">
+          <button onClick={() => navigate("/dashboard/certificates")} className="px-5 py-2 w-full sm:w-auto rounded-xl border border-gray-300 hover:bg-gray-100 transition text-center">
             View Certificates
           </button>
         </div>
@@ -62,9 +62,9 @@ const StudentDashboard = () => {
         ) : (
           <div className="space-y-3">
             {certificates.slice(0, 4).map((cert) => (
-              <div
+                <div
                 key={cert._id}
-                className="flex justify-between items-center p-3 rounded-xl hover:bg-gray-100 transition"
+                className="flex flex-col sm:flex-row sm:justify-between sm:items-center items-start gap-2 p-3 rounded-xl hover:bg-gray-100 transition"
               >
                 <div>
                   <p className="font-semibold">{cert.certificateId}</p>

@@ -17,7 +17,7 @@ const StudentProfilePage = () => {
   return (
     <div className="page-container space-y-6">
 
-      <div className="rounded-3xl p-6 text-white shadow-xl bg-linear-to-r from-indigo-500 via-purple-500 to-pink-500 flex items-center gap-6">
+      <div className="rounded-3xl p-6 text-white shadow-xl bg-linear-to-r from-indigo-500 via-purple-500 to-pink-500 flex flex-col md:flex-row items-center text-center md:text-left gap-6">
 
         <div className="relative">
           <img
@@ -28,16 +28,16 @@ const StudentProfilePage = () => {
           <span className="absolute bottom-1 right-1 w-4 h-4 bg-green-500 border-2 border-white rounded-full"></span>
         </div>
 
-        <div>
+        <div className="flex flex-col items-center md:items-start w-full">
           <h1 className="text-2xl font-bold">
             {user?.fullName || "Student"}
           </h1>
 
-          <p className="opacity-90">
+          <p className="opacity-90 mt-1 break-all">
             {user?.primaryEmailAddress?.emailAddress}
           </p>
 
-          <span className="inline-block mt-2 px-3 py-1 text-sm bg-white/20 rounded-full">
+          <span className="inline-block mt-3 px-3 py-1 text-sm bg-white/20 rounded-full">
             🎓 Student
           </span>
         </div>
@@ -84,7 +84,7 @@ const StudentProfilePage = () => {
 
           <div className="bg-gray-50 p-3 rounded-lg">
             <p className="text-sm text-gray-500">User ID</p>
-            <p className="font-medium">{user?.id}</p>
+            <p className="font-medium text-sm">{user?.id}</p>
           </div>
 
           <div className="bg-gray-50 p-3 rounded-lg">

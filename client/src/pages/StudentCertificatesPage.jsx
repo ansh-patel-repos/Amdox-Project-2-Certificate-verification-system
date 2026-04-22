@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { AppContext } from "../context/AppContext";
 import { useNavigate } from "react-router-dom";
 
@@ -62,14 +62,14 @@ const StudentCertificates = () => {
                             <p className="text-sm text-gray-600">Issued by: <span className="font-medium">{cert.issuedBy}</span></p>
                             <p className="text-sm text-gray-600">Issue Date: <span>{formatDate(cert.issuedDate)}</span></p>
 
-                            <div className="mt-4">
-                                <button onClick={() => window.open(cert.certificateUrl, "_blank")} className="btn-primary text-sm">
+                            <div className="flex flex-wrap gap-3 mt-4">
+                                <button onClick={() => window.open(cert.certificateUrl, "_blank")} className="btn-primary text-sm flex-1 text-center md:flex-none">
                                     View Certificate
                                 </button>
                                 <a
                                     href={cert.certificateUrl}
                                     download
-                                    className="ml-2 btn-outline text-sm"
+                                    className="btn-outline text-sm flex-1 text-center md:flex-none"
                                 >
                                     Download
                                 </a>

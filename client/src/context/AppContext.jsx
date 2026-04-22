@@ -10,8 +10,6 @@ export const AppContextProvider = (props) => {
     const BASE_URL = import.meta.env.VITE_BACKEND_URL;
     const { getToken, isLoaded, isSignedIn } = useAuth();
     const [userData, setUserData] = useState(null);
-    const [certificateCount, setCertificateCount] = useState(0)
-    const [logs, setLogs] = useState([]);
     const [verifyCount, setVerifyCount] = useState(0)
     const [uploadedFiles, setUploadedFiles] = useState([]);
     const [certificates, setCertificates] = useState([]);
@@ -35,41 +33,6 @@ export const AppContextProvider = (props) => {
             console.log(error.message);
         }
     }
-
-    const fetchAllCertificate = async () => {
-        try {
-            const token = await getToken();
-            const { data } = await axios.get(`${BASE_URL}/api/admin/getAllCertificates`, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            });
-
-            if (data.success) {
-                setCertificateCount(data.message)
-            } else {
-                toast.error(data.message)
-            }
-        } catch (error) {
-            console.log(error);
-            setCertificateCount(0);
-        }
-    }
-
-    const fetchLogs = async () => {
-
-        const token = await getToken();
-
-        const { data } = await axios.get("http://localhost:3000/api/admin/logs", {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        });
-
-        if (data.success) {
-            setLogs(data.logs);
-        }
-    };
 
     const uploadedFileData = async () => {
         try {
@@ -119,18 +82,6 @@ export const AppContextProvider = (props) => {
 
     useEffect(() => {
         if (isLoaded && isSignedIn && userData && userData.role === "admin") {
-            fetchAllCertificate();
-        }
-    }, [isLoaded, isSignedIn, userData])
-
-    useEffect(() => {
-        if (isLoaded && isSignedIn && userData && userData.role === "admin") {
-            fetchLogs();
-        }
-    }, [isLoaded, isSignedIn, verifyCount, userData]);
-
-    useEffect(() => {
-        if (isLoaded && isSignedIn && userData && userData.role === "admin") {
             uploadedFileData();
         }
     }, [isLoaded, isSignedIn, userData]);
@@ -142,7 +93,7 @@ export const AppContextProvider = (props) => {
     }, [isLoaded, isSignedIn, userData, loading])
 
     const value = {
-        userData, certificateCount, logs, setVerifyCount, verifyCount, uploadedFileData, uploadedFiles, certificates, loading
+        userData, setVerifyCount, verifyCount, uploadedFileData, uploadedFiles, certificates, loading
     }
 
     return (

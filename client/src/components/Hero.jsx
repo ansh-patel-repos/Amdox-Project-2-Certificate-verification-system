@@ -2,10 +2,10 @@ import { SearchBox } from "./SearchBox";
 
 export const Hero = () => {
   return (
-    <section className="relative py-28 overflow-hidden bg-linear-to-br from-indigo-50 via-white to-purple-100">
+    <section className="relative py-28 overflow-hidden max-w-[100vw] bg-linear-to-br from-indigo-50 via-white to-purple-100">
       
-      <div className="absolute -top-25 left-1/2 -translate-x-1/2 w-125 h-125 bg-indigo-300 opacity-30 blur-3xl rounded-full"></div>
-      <div className="absolute -bottom-25 right-0 w-100 h-100 bg-pink-300 opacity-20 blur-3xl rounded-full"></div>
+      <div className="absolute -top-10 md:-top-25 left-1/2 -translate-x-1/2 w-72 h-72 md:w-125 md:h-125 bg-indigo-300 opacity-30 blur-3xl rounded-full"></div>
+      <div className="absolute -bottom-10 md:-bottom-25 right-0 w-64 h-64 md:w-100 md:h-100 bg-pink-300 opacity-20 blur-3xl rounded-full"></div>
 
       <div className="relative max-w-4xl mx-auto px-6 text-center">
 

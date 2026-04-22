@@ -1,19 +1,31 @@
 import { useContext } from "react";
 import { AppContext } from "../context/AppContext";
 import { lazy, Suspense } from "react";
+import { useAuth } from "@clerk/clerk-react";
+import useSWR from 'swr';
+import axios from 'axios';
+import { useLogs } from "./AdminLogs";
 const Charts = lazy(() => import("../components/Charts"));
+
+export const useCertificateCount = (getToken, BASE_URL) => {
+  return useSWR(
+    BASE_URL ? [BASE_URL + '/api/admin/getAllCertificates', getToken] : null,
+    async ([url, getTokenFn]) => {
+      const token = await getTokenFn();
+      const res = await axios.get(url, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      return res.data;
+    }
+  );
+};
 
 export const AdminDashboard = () => {
 
-  const { certificateCount, logs } = useContext(AppContext)
-
-  const data = [
-    { name: "Mon", verifications: 20 },
-    { name: "Tue", verifications: 35 },
-    { name: "Wed", verifications: 15 },
-    { name: "Thu", verifications: 40 },
-    { name: "Fri", verifications: 25 },
-  ];
+  const { getToken } = useAuth();
+  const BASE_URL = import.meta.env.VITE_BACKEND_URL;
+  const { data: certificateData } = useCertificateCount(getToken,BASE_URL)
+  const { data: logsData, error, isLoading } = useLogs(getToken, BASE_URL)
 
   const barData = {
     labels: ["Mon", "Tue", "Wed", "Thu", "Fri"],
@@ -40,7 +52,7 @@ export const AdminDashboard = () => {
   return (
     <div className="p-6 space-y-6">
 
-      <div className="rounded-3xl p-8 text-white shadow-xl bg-linear-to-r from-indigo-500 via-purple-500 to-pink-500">
+      <div className="rounded-3xl p-5 md:p-8 text-white shadow-xl bg-linear-to-r from-indigo-500 via-purple-500 to-pink-500">
         <h1 className="text-3xl font-bold">Dashboard Overview 🚀</h1>
         <p className="opacity-90 mt-2">
           Monitor certificates, verifications and system activity
@@ -52,7 +64,7 @@ export const AdminDashboard = () => {
         <div className="backdrop-blur-lg bg-white/60 border border-white/30 p-6 rounded-2xl shadow-lg hover:shadow-2xl transition transform hover:-translate-y-1">
           <p className="text-gray-500 text-sm">Total Certificates</p>
           <h2 className="text-3xl font-bold mt-2">
-            {certificateCount > 0 ? certificateCount : 0}
+            {certificateData?.message > 0 ? certificateData?.message : 0}
           </h2>
         </div>
 
@@ -60,7 +72,7 @@ export const AdminDashboard = () => {
           <p className="text-gray-500 text-sm">Verified Today</p>
           <h2 className="text-3xl font-bold mt-2">
             {
-              logs.filter((log) =>
+              logsData?.logs.filter((log) =>
                 new Date(log.createdAt).toDateString() === new Date().toDateString()
               ).length
             }
@@ -73,7 +85,7 @@ export const AdminDashboard = () => {
         </div>
 
       </div>
-      
+
       <Suspense fallback={<div className="h-64 flex items-center justify-center">Loading Data Visuals...</div>}>
         <Charts barData={barData} pieData={pieData} />
       </Suspense>

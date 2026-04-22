@@ -7,13 +7,13 @@ export const Sidebar = () => {
   const { userData } = useContext(AppContext)
 
   return (
-    <div className="w-64 bg-white border-r p-6">
+    <div className="w-full md:w-64 md:min-h-screen bg-white border-b md:border-r border-gray-200 p-6 flex flex-col">
 
-      <h2 className="text-2xl font-bold text-blue-600 mb-8">
+      <h2 className="hidden md:block text-2xl font-bold text-blue-600 mb-4 md:mb-8 text-center md:text-left">
         CertifyX
       </h2>
 
-      <nav className="flex flex-col gap-3">
+      <nav className="flex flex-row md:flex-col gap-3 overflow-x-auto pb-2 md:pb-0 whitespace-nowrap scrollbar-hide [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
 
         {userData && userData.role === "admin" ?
           <>

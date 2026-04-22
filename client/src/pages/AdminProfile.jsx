@@ -1,19 +1,25 @@
-import { useUser } from "@clerk/clerk-react";
+import { useAuth, useUser } from "@clerk/clerk-react";
 import { useContext, useState } from "react";
 import { AppContext } from "../context/AppContext";
 import { FiMail, FiUser, FiShield, FiClock } from "react-icons/fi";
 import { EditProfileModal } from "../components/EditProfileModal";
+import { useCertificateCount } from "./AdminDashboard";
+import { useLogs } from "./AdminLogs";
 
 const AdminProfilePage = () => {
 
   const { user } = useUser();
-  const { userData, certificateCount, logs, uploadedFiles } = useContext(AppContext);
+  const { getToken } = useAuth();
+  const BASE_URL = import.meta.env.VITE_BACKEND_URL;
+  const { userData, logs, uploadedFiles } = useContext(AppContext);
+  const { data } = useCertificateCount(getToken, BASE_URL)
+  const { data: logsData } = useLogs(getToken, BASE_URL)
   const [showEditModal, setShowEditModal] = useState(false);
 
   return (
     <div className="page-container">
 
-      <div className="hero-gradient flex items-center gap-6">
+      <div className="hero-gradient flex flex-col md:flex-row items-center text-center md:text-left gap-6">
 
         <div className="relative">
           <img
@@ -24,7 +30,7 @@ const AdminProfilePage = () => {
           <span className="absolute bottom-1 right-1 w-4 h-4 bg-green-500 border-2 border-white rounded-full"></span>
         </div>
 
-        <div className="flex-1">
+        <div className="flex-1 flex flex-col items-center md:items-start">
           <h1 className="text-3xl font-bold">
             {userData?.firstName} {userData?.lastName}
           </h1>
@@ -124,12 +130,12 @@ const AdminProfilePage = () => {
           </div>
 
           <div className="p-5 rounded-2xl bg-linear-to-r from-green-400 to-green-600 text-white shadow">
-            <p className="text-2xl font-bold">{certificateCount}</p>
+            <p className="text-2xl font-bold">{data?.message > 0 ? data.message : 0}</p>
             <p className="text-sm opacity-80">Certificates</p>
           </div>
 
           <div className="p-5 rounded-2xl bg-linear-to-r from-pink-500 to-red-500 text-white shadow">
-            <p className="text-2xl font-bold">{logs.length}</p>
+            <p className="text-2xl font-bold">{logsData?.logs.length}</p>
             <p className="text-sm opacity-80">Logs</p>
           </div>
 

@@ -64,6 +64,7 @@ const AdminUpload = () => {
       );
 
       if (data.success) {
+        console.log(data);
         setSelectedFileData(data.data);
         setShowModal(true);
       }
@@ -104,7 +105,7 @@ const AdminUpload = () => {
 
       <div className="hero-gradient">
         <h1 className="text-3xl font-bold">Upload Certificates 📤</h1>
-        <p className="opacity-90 mt-2">
+        <p className="opacity-90 mt-2 ml-1">
           Upload Excel File
         </p>
       </div>
@@ -151,15 +152,15 @@ const AdminUpload = () => {
       <div className="card-glass">
         <h2 className="section-title">Uploaded Files</h2>
 
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm">
+        <div className="overflow-x-auto pb-4">
+          <table className="w-full text-sm whitespace-nowrap">
 
             <thead className="text-gray-500 border-b">
               <tr>
                 <th className="p-3 text-left">File Name</th>
-                <th>View</th>
-                <th>Delete</th>
-                <th>Uploaded At</th>
+                <th className="p-3 text-center">View</th>
+                <th className="p-3 text-center">Delete</th>
+                <th className="p-3 text-center">Uploaded At</th>
               </tr>
             </thead>
 
@@ -168,7 +169,7 @@ const AdminUpload = () => {
                 <tr key={file._id} className="border-b hover:bg-gray-100 transition">
                   <td className="p-3 font-medium">{file.fileName}</td>
 
-                  <td>
+                  <td className="p-3 text-center">
                     <button
                       className="text-indigo-600 hover:underline"
                       onClick={() => handleFileView(file._id)}
@@ -177,7 +178,7 @@ const AdminUpload = () => {
                     </button>
                   </td>
 
-                  <td>
+                  <td className="p-3 text-center">
                     <button
                       className="text-red-500 hover:underline"
                       onClick={() => handleFileDelete(file._id)}
@@ -186,7 +187,7 @@ const AdminUpload = () => {
                     </button>
                   </td>
 
-                  <td className="text-gray-500">
+                  <td className="p-3 text-gray-500 text-center">
                     {new Date(file.uploadedAt).toLocaleString()}
                   </td>
                 </tr>
@@ -203,7 +204,7 @@ const AdminUpload = () => {
           <div className="card-glass w-[90%] max-h-[80vh] overflow-y-auto">
 
             <div className="flex justify-between mb-4">
-              <h2 className="text-xl font-semibold">Certificate Details</h2>
+              <h2 className="text-xl font-semibold">File Details</h2>
               <button onClick={() => setShowModal(false)}>✕</button>
             </div>
 
@@ -213,7 +214,7 @@ const AdminUpload = () => {
                   <th className="p-2 border">ID</th>
                   <th className="p-2 border">Name</th>
                   <th className="p-2 border">Course</th>
-                  <th className="p-2 border">Date</th>
+                  <th className="p-2 border">Issue Date</th>
                 </tr>
               </thead>
 
@@ -222,7 +223,7 @@ const AdminUpload = () => {
                   <tr key={index} className="text-center border">
                     <td className="p-2 border">{cert.certificateId}</td>
                     <td className="p-2 border">{cert.studentName}</td>
-                    <td className="p-2 border">{cert.course}</td>
+                    <td className="p-2 border">{cert.internshipDomain}</td>
                     <td className="p-2 border">{cert.issuedDate}</td>
                   </tr>
                 ))}
