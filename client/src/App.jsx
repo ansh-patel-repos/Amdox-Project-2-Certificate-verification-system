@@ -26,7 +26,14 @@ function App() {
       <BrowserRouter>
         <Navbar />
         <ToastContainer />
-        <Suspense fallback={<div className="text-center mt-5">Loading Page...</div>}>
+        <Suspense fallback={
+          <div className="flex justify-center items-center min-h-screen bg-gray-50">
+            <div className="relative">
+              <div className="animate-spin rounded-full h-16 w-16 border-4 border-blue-200 border-t-blue-600"></div>
+              <div className="absolute inset-0 rounded-full h-16 w-16 border-4 border-transparent border-t-blue-600 animate-ping"></div>
+            </div>
+          </div>
+        }>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/verify" element={<VerifyCertificate />} />
